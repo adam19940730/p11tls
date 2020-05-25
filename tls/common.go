@@ -17,7 +17,6 @@ import (
 	"crypto/x509"
 	"errors"
 	"fmt"
-	"internal/cpu"
 	"io"
 	"math/big"
 	"net"
@@ -1297,7 +1296,7 @@ func defaultCipherSuitesTLS13() []uint16 {
 func initDefaultCipherSuites() {
 	var topCipherSuites []uint16
 
-	// Check the cpu flags for each platform that has optimized GCM implementations.
+/*	// Check the cpu flags for each platform that has optimized GCM implementations.
 	// Worst case, these variables will just all be false.
 	var (
 		hasGCMAsmAMD64 = cpu.X86.HasAES && cpu.X86.HasPCLMULQDQ
@@ -1341,6 +1340,21 @@ func initDefaultCipherSuites() {
 			TLS_AES_128_GCM_SHA256,
 			TLS_AES_256_GCM_SHA384,
 		}
+	}*/
+
+	topCipherSuites = []uint16{
+		TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,
+		TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
+		TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
+		TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+		TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,
+		TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,
+		TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,
+	}
+	varDefaultCipherSuitesTLS13 = []uint16{
+		TLS_AES_128_GCM_SHA256,
+		TLS_CHACHA20_POLY1305_SHA256,
+		TLS_AES_256_GCM_SHA384,
 	}
 
 	varDefaultCipherSuites = make([]uint16, 0, len(cipherSuites))
